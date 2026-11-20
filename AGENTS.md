@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Panda screens live as self-contained files in src/panda/ and are loaded client-only via import.meta.glob (src/lib/panda-screens.ts) — they were authored as standalone browser components.

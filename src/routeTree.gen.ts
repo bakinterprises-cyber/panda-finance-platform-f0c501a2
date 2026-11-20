@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ScreensIndexRouteImport } from './routes/screens/index'
+import { Route as ScreensSlugRouteImport } from './routes/screens/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScreensIndexRoute = ScreensIndexRouteImport.update({
+  id: '/screens/',
+  path: '/screens/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScreensSlugRoute = ScreensSlugRouteImport.update({
+  id: '/screens/$slug',
+  path: '/screens/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/screens/$slug': typeof ScreensSlugRoute
+  '/screens/': typeof ScreensIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/screens/$slug': typeof ScreensSlugRoute
+  '/screens': typeof ScreensIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/screens/$slug': typeof ScreensSlugRoute
+  '/screens/': typeof ScreensIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/screens/$slug' | '/screens/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/screens/$slug' | '/screens'
+  id: '__root__' | '/' | '/screens/$slug' | '/screens/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ScreensSlugRoute: typeof ScreensSlugRoute
+  ScreensIndexRoute: typeof ScreensIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/screens/': {
+      id: '/screens/'
+      path: '/screens'
+      fullPath: '/screens/'
+      preLoaderRoute: typeof ScreensIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/screens/$slug': {
+      id: '/screens/$slug'
+      path: '/screens/$slug'
+      fullPath: '/screens/$slug'
+      preLoaderRoute: typeof ScreensSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ScreensSlugRoute: ScreensSlugRoute,
+  ScreensIndexRoute: ScreensIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
