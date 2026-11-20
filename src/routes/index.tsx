@@ -1,7 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PandaScreen } from "@/components/PandaScreen";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
+  beforeLoad: () => {
+    throw redirect({ to: "/screens" });
+  },
   head: () => ({
     meta: [
       { title: "Panda Finance — Wallet, Marketplace & Credit" },
@@ -12,5 +14,4 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <PandaScreen slug="PandaFinance-1" />,
 });
