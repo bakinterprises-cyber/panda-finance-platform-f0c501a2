@@ -29,4 +29,4 @@ use the editor.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
 
-- Panda screens live as self-contained files in src/panda/ and are loaded client-only via import.meta.glob (src/lib/panda-screens.ts) — they were authored as standalone browser components.
+- Panda screens live as self-contained files in src/panda/<section>/ (auth, wallet, marketplace, business, credit, investments, community, finance), mirroring the GitHub repo layout, and are loaded client-only via import.meta.glob (src/lib/panda-screens.ts) — they were authored as standalone browser components.
